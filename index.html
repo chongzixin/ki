@@ -23,6 +23,25 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="969f844f-67d1-48da-be69-8d62e9092a7b"></script>
+  <script>
+    (function () {
+      var key = 'ki_pricing_variant';
+      var v = localStorage.getItem(key);
+      if (!v) {
+        v = Math.random() < 0.5 ? 'control' : 'donation';
+        localStorage.setItem(key, v);
+      }
+      document.documentElement.classList.add('pricing-' + v);
+      function trackExposure() {
+        if (window.umami) {
+          window.umami.track('AB Exposure', { variant: v });
+        } else {
+          setTimeout(trackExposure, 300);
+        }
+      }
+      window.addEventListener('load', trackExposure);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -536,10 +555,27 @@
       line-height: 1.2;
     }
 
+    html.pricing-control .services-variant-donation { display: none; }
+    html.pricing-donation .services-variant-control { display: none; }
+
     .service-price {
       display: flex;
       align-items: baseline;
       gap: 6px;
+    }
+
+    .price-donation {
+      font-family: 'Noto Serif', serif;
+      font-size: 20px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .price-note {
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-top: 4px;
     }
 
     .price-main {
@@ -1235,60 +1271,120 @@
 <!-- ── Services ── -->
 <section id="services">
   <div class="container">
-    <p class="section-label reveal">Services &amp; Pricing</p>
-    <h2 class="section-heading reveal reveal-delay-1">Choose your session</h2>
-    <p class="section-sub reveal reveal-delay-2">All sessions are 60 minutes. Package pricing is for three sessions, to be used within three months of purchase.</p>
-    <div class="services-grid">
 
-      <div class="service-card service-card-solo reveal reveal-delay-1">
-        <span class="service-badge badge-solo">Solo</span>
-        <div class="service-name">Solo<br>Session</div>
-        <div>
-          <div class="service-price">
-            <span class="price-main">$150</span>
-            <span class="price-duration">/ 60 min</span>
+    <!-- ── Variant A: fixed pricing (control) ── -->
+    <div class="services-variant-control">
+      <p class="section-label reveal">Services &amp; Pricing</p>
+      <h2 class="section-heading reveal reveal-delay-1">Choose your session</h2>
+      <p class="section-sub reveal reveal-delay-2">All sessions are 60 minutes. Package pricing is for three sessions, to be used within three months of purchase.</p>
+      <div class="services-grid">
+
+        <div class="service-card service-card-solo reveal reveal-delay-1">
+          <span class="service-badge badge-solo">Solo</span>
+          <div class="service-name">Solo<br>Session</div>
+          <div>
+            <div class="service-price">
+              <span class="price-main">$150</span>
+              <span class="price-duration">/ 60 min</span>
+            </div>
+            <div class="price-package">3-session package: <strong>$390</strong></div>
           </div>
-          <div class="price-package">3-session package: <strong>$390</strong></div>
+          <p class="service-desc">One practitioner, fully focused on you. A complete, unhurried session calibrated to your specific needs — the ideal starting point for first-timers.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-solo" data-umami-event-variant="control">
+            Book →
+          </a>
         </div>
-        <p class="service-desc">One practitioner, fully focused on you. A complete, unhurried session calibrated to your specific needs — the ideal starting point for first-timers.</p>
-        <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-solo">
-          Book →
-        </a>
-      </div>
 
-      <div class="service-card service-card-duo reveal reveal-delay-2">
-        <span class="service-badge badge-duo">Boost · Duo</span>
-        <div class="service-name">Boost Session<br>— Duo</div>
-        <div>
-          <div class="service-price">
-            <span class="price-main">$220</span>
-            <span class="price-duration">/ 60 min</span>
+        <div class="service-card service-card-duo reveal reveal-delay-2">
+          <span class="service-badge badge-duo">Boost · Duo</span>
+          <div class="service-name">Boost Session<br>— Duo</div>
+          <div>
+            <div class="service-price">
+              <span class="price-main">$220</span>
+              <span class="price-duration">/ 60 min</span>
+            </div>
+            <div class="price-package">3-session package: <strong>$570</strong></div>
           </div>
-          <div class="price-package">3-session package: <strong>$570</strong></div>
+          <p class="service-desc">Two practitioners working in tandem, creating a broader, more enveloping field of energy flow. Noticeably deeper than a solo session.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-duo" data-umami-event-variant="control">
+            Book →
+          </a>
         </div>
-        <p class="service-desc">Two practitioners working in tandem, creating a broader, more enveloping field of energy flow. Noticeably deeper than a solo session.</p>
-        <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-duo">
-          Book →
-        </a>
-      </div>
 
-      <div class="service-card service-card-trio reveal reveal-delay-3">
-        <span class="service-badge badge-trio">Boost · Trio</span>
-        <div class="service-name">Boost Session<br>— Trio</div>
-        <div>
-          <div class="service-price">
-            <span class="price-main">$300</span>
-            <span class="price-duration">/ 60 min</span>
+        <div class="service-card service-card-trio reveal reveal-delay-3">
+          <span class="service-badge badge-trio">Boost · Trio</span>
+          <div class="service-name">Boost Session<br>— Trio</div>
+          <div>
+            <div class="service-price">
+              <span class="price-main">$300</span>
+              <span class="price-duration">/ 60 min</span>
+            </div>
+            <div class="price-package">3-session package: <strong>$840</strong></div>
           </div>
-          <div class="price-package">3-session package: <strong>$840</strong></div>
+          <p class="service-desc">Three practitioners in full-surround formation. Recommended for acute anxiety, deep muscular tension, or anyone seeking their most thorough reset.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-trio" data-umami-event-variant="control">
+            Book →
+          </a>
         </div>
-        <p class="service-desc">Three practitioners in full-surround formation. Recommended for acute anxiety, deep muscular tension, or anyone seeking their most thorough reset.</p>
-        <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-trio">
-          Book →
-        </a>
-      </div>
 
+      </div>
     </div>
+
+    <!-- ── Variant B: donation-based pricing ── -->
+    <div class="services-variant-donation">
+      <p class="section-label reveal">Sessions</p>
+      <h2 class="section-heading reveal reveal-delay-1">Choose your session</h2>
+      <p class="section-sub reveal reveal-delay-2">All sessions are 60 minutes. Pay what feels right at the end — by PayNow or cash. No fixed price, no pressure.</p>
+      <div class="services-grid">
+
+        <div class="service-card service-card-solo reveal reveal-delay-1">
+          <span class="service-badge badge-solo">Solo</span>
+          <div class="service-name">Solo<br>Session</div>
+          <div>
+            <div class="service-price">
+              <span class="price-donation">Pay what feels right</span>
+            </div>
+            <div class="price-note">One practitioner · 60 min · PayNow or cash</div>
+          </div>
+          <p class="service-desc">One practitioner, fully focused on you. A complete, unhurried session calibrated to your specific needs — the ideal starting point for first-timers.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+donation-based+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-solo" data-umami-event-variant="donation">
+            Book →
+          </a>
+        </div>
+
+        <div class="service-card service-card-duo reveal reveal-delay-2">
+          <span class="service-badge badge-duo">Boost · Duo</span>
+          <div class="service-name">Boost Session<br>— Duo</div>
+          <div>
+            <div class="service-price">
+              <span class="price-donation">Pay what feels right</span>
+            </div>
+            <div class="price-note">Two practitioners · 60 min · PayNow or cash</div>
+          </div>
+          <p class="service-desc">Two practitioners working in tandem, creating a broader, more enveloping field of energy flow. Noticeably deeper than a solo session.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+donation-based+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-duo" data-umami-event-variant="donation">
+            Book →
+          </a>
+        </div>
+
+        <div class="service-card service-card-trio reveal reveal-delay-3">
+          <span class="service-badge badge-trio">Boost · Trio</span>
+          <div class="service-name">Boost Session<br>— Trio</div>
+          <div>
+            <div class="service-price">
+              <span class="price-donation">Pay what feels right</span>
+            </div>
+            <div class="price-note">Three practitioners · 60 min · PayNow or cash</div>
+          </div>
+          <p class="service-desc">Three practitioners in full-surround formation. Recommended for acute anxiety, deep muscular tension, or anyone seeking their most thorough reset.</p>
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+donation-based+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-trio" data-umami-event-variant="donation">
+            Book →
+          </a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1512,7 +1608,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showReikiSection": true,
   "showTestimonials": true,
   "photoShape": "rounded",
-  "heroAccent": "peach"
+  "heroAccent": "peach",
+  "pricingModel": "ab"
 }/*EDITMODE-END*/;
 
 function KiTweaks() {
@@ -1540,6 +1637,19 @@ function KiTweaks() {
       el.style.borderRadius = tweaks.photoShape === 'rounded' ? '14px' : '0px';
     });
   }, [tweaks.photoShape]);
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove('pricing-control', 'pricing-donation');
+    if (tweaks.pricingModel === 'control') {
+      root.classList.add('pricing-control');
+    } else if (tweaks.pricingModel === 'donation') {
+      root.classList.add('pricing-donation');
+    } else {
+      const v = localStorage.getItem('ki_pricing_variant') || 'control';
+      root.classList.add('pricing-' + v);
+    }
+  }, [tweaks.pricingModel]);
 
   React.useEffect(() => {
     const tex = document.querySelector('.hero-texture');
@@ -1570,6 +1680,9 @@ function KiTweaks() {
       </TweakSection>
       <TweakSection title="Hero">
         <TweakRadio label="Accent wash" value={tweaks.heroAccent} options={[{label:'Peach', value:'peach'},{label:'Sage', value:'sage'},{label:'Tan', value:'tan'}]} onChange={v => setTweak('heroAccent', v)} />
+      </TweakSection>
+      <TweakSection title="Pricing experiment">
+        <TweakRadio label="Pricing model" value={tweaks.pricingModel} options={[{label:'A/B live', value:'ab'},{label:'Fixed (control)', value:'control'},{label:'Donation', value:'donation'}]} onChange={v => setTweak('pricingModel', v)} />
       </TweakSection>
     </TweaksPanel>
   );
