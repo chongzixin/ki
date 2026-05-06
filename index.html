@@ -25,10 +25,10 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="969f844f-67d1-48da-be69-8d62e9092a7b"></script>
   <script>
     (function () {
-      var key = 'ki_pricing_variant';
+      var key = 'ki_pricing_variant_v2';
       var v = localStorage.getItem(key);
       if (!v) {
-        v = Math.random() < 0.5 ? 'control' : 'donation';
+        v = Math.random() < 0.5 ? 'boost' : 'donation';
         localStorage.setItem(key, v);
       }
       document.documentElement.classList.add('pricing-' + v);
@@ -555,8 +555,10 @@
       line-height: 1.2;
     }
 
-    html.pricing-control .services-variant-donation { display: none; }
-    html.pricing-donation .services-variant-control { display: none; }
+    html.pricing-boost .services-variant-donation { display: none; }
+    html.pricing-donation .services-variant-boost { display: none; }
+    html.pricing-donation .boost-only { display: none; }
+    html.pricing-boost .donation-only { display: none; }
 
     .donation-single {
       max-width: 380px;
@@ -1277,7 +1279,7 @@
   <div class="container">
 
     <!-- ── Variant A: fixed pricing (control) ── -->
-    <div class="services-variant-control">
+    <div class="services-variant-boost">
       <p class="section-label reveal">Services &amp; Pricing</p>
       <h2 class="section-heading reveal reveal-delay-1">Choose your session</h2>
       <p class="section-sub reveal reveal-delay-2">All sessions are 60 minutes. Package pricing is for three sessions, to be used within three months of purchase.</p>
@@ -1294,7 +1296,7 @@
             <div class="price-package">3-session package: <strong>$390</strong></div>
           </div>
           <p class="service-desc">One practitioner, fully focused on you. A complete, unhurried session calibrated to your specific needs — the ideal starting point for first-timers.</p>
-          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-solo" data-umami-event-variant="control">
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-solo" data-umami-event-variant="boost">
             Book →
           </a>
         </div>
@@ -1310,7 +1312,7 @@
             <div class="price-package">3-session package: <strong>$570</strong></div>
           </div>
           <p class="service-desc">Two practitioners working in tandem, creating a broader, more enveloping field of energy flow. Noticeably deeper than a solo session.</p>
-          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-duo" data-umami-event-variant="control">
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-duo" data-umami-event-variant="boost">
             Book →
           </a>
         </div>
@@ -1326,7 +1328,7 @@
             <div class="price-package">3-session package: <strong>$840</strong></div>
           </div>
           <p class="service-desc">Three practitioners in full-surround formation. Recommended for acute anxiety, deep muscular tension, or anyone seeking their most thorough reset.</p>
-          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-trio" data-umami-event-variant="control">
+          <a href="https://wa.me/6596749304?text=Hi%2C+I+am+interested+in+a+Reiki+session." class="service-book" target="_blank" rel="noopener" data-umami-event="WhatsApp Click" data-umami-event-placement="service-trio" data-umami-event-variant="boost">
             Book →
           </a>
         </div>
@@ -1424,7 +1426,7 @@
         <p class="testimonial-attr">— T.L., Sembawang</p>
       </div>
 
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card reveal reveal-delay-2 boost-only">
         <div>
           <div class="testimonial-mark">"</div>
           <p class="testimonial-quote">The Trio session was unlike anything I'd experienced. I came in wound up from a particularly bad stretch of anxiety — I left feeling like the dial had been turned all the way down.</p>
@@ -1462,7 +1464,9 @@
       <details class="faq-item">
         <summary class="faq-question">How many sessions will I need?</summary>
         <div class="faq-answer">
-          <p>Even a single session can bring noticeable relief — clients often report better sleep the same night, or a significant reduction in tension. That said, for lasting change we recommend a course of three sessions, ideally spaced one to two weeks apart. We offer package pricing for three sessions: SGD 390 for a Solo package, SGD 570 for a Boost Duo, and SGD 840 for a Boost Trio. After your first session we can advise on what cadence suits your goals.</p>
+          <p>Even a single session can bring noticeable relief — clients often report better sleep the same night, or a significant reduction in tension. That said, for lasting change we recommend a course of three sessions, ideally spaced one to two weeks apart.</p>
+          <p class="boost-only">We offer package pricing for three sessions: SGD 390 for a Solo package, SGD 570 for a Boost Duo, and SGD 840 for a Boost Trio. After your first session we can advise on what cadence suits your goals.</p>
+          <p class="donation-only">After your first session we can advise on the right cadence for you.</p>
         </div>
       </details>
 
@@ -1480,7 +1484,7 @@
         </div>
       </details>
 
-      <details class="faq-item">
+      <details class="faq-item boost-only">
         <summary class="faq-question">Why choose a Boost Session over a Solo Session?</summary>
         <div class="faq-answer">
           <p>A Solo Session (one practitioner) is a beautifully effective entry point and a great choice for first-timers. The Boost Duo and Boost Trio bring two or three practitioners working in tandem — their combined energy creates a noticeably more intense and immersive experience. Clients who have chronic tension patterns, are navigating a particularly stressful period, or simply want to go deeper often find the Boost sessions transformative. The Trio in particular tends to produce very profound states of relaxation and is our most sought-after offering.</p>
@@ -1613,13 +1617,13 @@ function KiTweaks() {
 
   React.useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove('pricing-control', 'pricing-donation');
-    if (tweaks.pricingModel === 'control') {
-      root.classList.add('pricing-control');
+    root.classList.remove('pricing-boost', 'pricing-donation');
+    if (tweaks.pricingModel === 'boost') {
+      root.classList.add('pricing-boost');
     } else if (tweaks.pricingModel === 'donation') {
       root.classList.add('pricing-donation');
     } else {
-      const v = localStorage.getItem('ki_pricing_variant') || 'control';
+      const v = localStorage.getItem('ki_pricing_variant_v2') || 'boost';
       root.classList.add('pricing-' + v);
     }
   }, [tweaks.pricingModel]);
@@ -1655,7 +1659,7 @@ function KiTweaks() {
         <TweakRadio label="Accent wash" value={tweaks.heroAccent} options={[{label:'Peach', value:'peach'},{label:'Sage', value:'sage'},{label:'Tan', value:'tan'}]} onChange={v => setTweak('heroAccent', v)} />
       </TweakSection>
       <TweakSection title="Pricing experiment">
-        <TweakRadio label="Pricing model" value={tweaks.pricingModel} options={[{label:'A/B live', value:'ab'},{label:'Fixed (control)', value:'control'},{label:'Donation', value:'donation'}]} onChange={v => setTweak('pricingModel', v)} />
+        <TweakRadio label="Pricing model" value={tweaks.pricingModel} options={[{label:'A/B live', value:'ab'},{label:'Boost mode', value:'boost'},{label:'Donation mode', value:'donation'}]} onChange={v => setTweak('pricingModel', v)} />
       </TweakSection>
     </TweaksPanel>
   );
